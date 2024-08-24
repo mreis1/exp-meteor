@@ -7,6 +7,8 @@ Template.task.events({
         Meteor.call('tasks.setIsChecked', this._id, !this.isChecked);
     },
     'click .delete'() {
-        Meteor.call('tasks.remove', this._id);
+        Meteor.call('tasks.remove', this._id, (err, results) => {
+            console.log({err,results});
+        });
     },
 })
