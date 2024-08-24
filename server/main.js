@@ -1,19 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { TasksCollection } from '/imports/api/TasksCollection';
+import '/imports/api/tasksMethods';
+import {TasksCollection} from "../imports/db/TasksCollection";
 
-
-
-const insertTask = (taskText, user) => TasksCollection.insertAsync({ text: taskText,    userId: user._id,
-});
+const insertTask = (taskText) => Meteor.call('tasks.insert', taskText);
 
 const SEED_USERNAME = 'meteorite';
 const SEED_PASSWORD = 'password';
 
 
 Meteor.startup(async () => {
-    console.log(await TasksCollection.find().countAsync());
-
     const user = await Accounts.findUserByUsername(SEED_USERNAME);
 
     if (!await Accounts.findUserByUsername(SEED_USERNAME)) {

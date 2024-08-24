@@ -4,8 +4,8 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import './App.html';
 import "./Task.js";
 import "./Login.js";
+import {TasksCollection} from "../db/TasksCollection";
 
-import {TasksCollection} from "../api/TasksCollection";
 
 const HIDE_COMPLETED_STRING = "hideCompleted";
 
@@ -86,11 +86,7 @@ Template.form.events({
         const text = target.text.value;
 
         // Insert a task into the collection
-        TasksCollection.insert({
-            userId: getUser()._id,
-            text,
-            createdAt: new Date(), // current time
-        });
+        Meteor.call('tasks.insert', text);
 
         // Clear form
         target.text.value = '';
