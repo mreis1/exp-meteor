@@ -23,7 +23,7 @@ Meteor.methods({
             throw new Meteor.Error('Not authorized.');
         }
 
-        TasksCollection.remove(taskId);
+        TasksCollection.removeAsync(taskId);
     },
 
     'tasks.setIsChecked'(taskId, isChecked) {
